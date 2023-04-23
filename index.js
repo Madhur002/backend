@@ -1,7 +1,7 @@
 import connectToMongo from "./db.js";
 import express from "express";
 import authRoutes from './routes/auth.js';
-
+import notesRoutes from './routes/notes.js';
 
 
 connectToMongo();
@@ -11,6 +11,7 @@ app.use(express.json());
 
 // AVAILABLE ROUTES
 app.use('/api/auth', authRoutes);
+app.use('/api/notes', notesRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World this is me !')

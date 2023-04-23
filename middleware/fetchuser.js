@@ -17,4 +17,5 @@ const fetchuser = (req,res,next) => {
     }
 }
 
-export default fetchuser
+export default fetchuser;
+
