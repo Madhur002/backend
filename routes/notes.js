@@ -73,4 +73,28 @@ catch (error) {
 })
 
 
+// Route 4  To delete the existing note with /api/notes/deletenote login required
+router.delete('/deletenote/:id',fetchuser, async (req, res) => {
+  try {
+    const { title, description, tag } = req.body;
+  
+     // Find the note to be deleted and delete it.........
+     let note = await Notes.findById(req.params.id);
+     if(!note){return res.status(404).send("Not Found")}
+  
+     // To check if the user who is trying to delete the file owns the note or not ........
+     if(note.user.toString() !== req.user.id){
+      return res.status(401).send("Not Allowed");
+     }
+  
+     note = await Notes.findByIdAndDelete(req.params.id);
+    res.json({ "Successfully" : "deleted the Note", note : note})
+  }
+  catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error"); 
+  }
+  })
+  
+
 export default router;
